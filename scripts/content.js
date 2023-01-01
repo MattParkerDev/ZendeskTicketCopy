@@ -21,11 +21,8 @@ function waitForElement(selector) {
 async function AddButtonToDOM(nearbyButton, ticketNumber) {
   var div = document.createElement("div");
   div.classList.add("ember-view", "btn", "copyButton");
-  //span.textContent = `Copy`;
   div.onclick = function () {
     navigator.clipboard.writeText(ticketNumber);
-    //span.textContent = "Copied";
-    //return to "Copy"
   };
   var symbolSpan = document.createElement("span");
   symbolSpan.textContent = "\u2398 ";
@@ -36,11 +33,9 @@ async function AddButtonToDOM(nearbyButton, ticketNumber) {
   var hoverSpan = document.createElement("span");
   hoverSpan.textContent = "Copy";
   hoverSpan.id = "hoverSpan";
-  //hoverSpan.style.display = "none";
   var clickSpan = document.createElement("span");
   clickSpan.textContent = "Copied";
   clickSpan.id = "clickSpan";
-  //clickSpan.style.display = "none";
   div.appendChild(symbolSpan);
   div.appendChild(ticketSpan);
   div.appendChild(hoverSpan);
