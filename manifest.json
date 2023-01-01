@@ -1,8 +1,8 @@
 {
   "manifest_version": 3,
   "name": "ZendeskTicketCopy",
-  "version": "1.0",
-  "description": "A simple button in Zendesk to copy the ticket number.",
+  "version": "1.0.0",
+  "description": "Creates a simple button in Zendesk to copy the current ticket number.",
 
   "icons": {
     "16": "images/icon-16.png",
@@ -14,7 +14,7 @@
     {
       "js": ["scripts/content.js"],
       "css": ["style.css"],
-      "matches": ["https://*.zendesk.com/agent/tickets/*"],
+      "matches": ["https://*.zendesk.com/agent/*"],
       "run_at": "document_start"
     }
   ]
