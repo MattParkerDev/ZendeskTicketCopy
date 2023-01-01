@@ -1,0 +1,34 @@
+.copyButton:hover {
+  background-color: #e9ebed !important;
+}
+
+.copyButton:active {
+  background-color: #d0d0d0 !important;
+}
+
+.copyButton:hover span#ticketSpan {
+  display: none;
+}
+
+.copyButton:hover span#hoverSpan {
+  display: inline;
+}
+
+.copyButton:active span#clickSpan {
+  display: inline;
+}
+
+.copyButton:active span#hoverSpan {
+  display: none;
+}
+
+.copyButton #hoverSpan {
+  display: none;
+}
+
+.copyButton #clickSpan {
+  display: none;
+}
+.copyButton {
+  width: 87px !important;
+}
