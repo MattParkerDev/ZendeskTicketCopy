@@ -1,3 +1,4 @@
+// @ts-check
 function waitForElement(selector) {
   return new Promise((resolve) => {
     if (document.querySelector(selector)) {
@@ -18,7 +19,7 @@ function waitForElement(selector) {
   });
 }
 
-async function AddButtonToDOM(nearbyButton, ticketNumber) {
+function AddButtonToDOM(nearbyButton, ticketNumber) {
   var div = document.createElement("div");
   div.classList.add("ember-view", "btn", "copyButton");
   div.onclick = function () {
@@ -45,7 +46,7 @@ async function AddButtonToDOM(nearbyButton, ticketNumber) {
   }
 }
 
-async function ButtonPlacementHandler(ticketTabContainer) {
+function ButtonPlacementHandler(ticketTabContainer) {
   var ticketTabList = ticketTabContainer.querySelectorAll(
     ".sc-1x3zb4y-0.eXHmlx"
   );
@@ -53,16 +54,30 @@ async function ButtonPlacementHandler(ticketTabContainer) {
     var ticketNumber = ticketTab
       .querySelector("div")
       .getAttribute("data-entity-id");
-    var paneSelector = `div[elementtiming='ticket_workspace/${ticketNumber}']`;
-    var intermediate = document.querySelector(paneSelector);
 
-    if (intermediate !== null) {
-      var parent = intermediate.closest("div.ember-view.workspace");
-      var nearbyButton = parent.querySelector("span.ember-view.btn.active");
-      var existingButton = parent.querySelector("div.copyButton");
-      if (!existingButton && nearbyButton !== null && parent !== null) {
-        AddButtonToDOM(nearbyButton, ticketNumber);
+    var paneSelectorString = `div[elementtiming='ticket_workspace/${ticketNumber}']`;
+    var intermediate = document.querySelector(paneSelectorString);
+    if (intermediate === null) continue;
+
+    var parent = intermediate.closest("div.ember-view.workspace");
+    if (parent === null) continue;
+
+    var nearbyButton = parent.querySelector("span.ember-view.btn.active");
+    if (nearbyButton === null) continue;
+
+    var existingButton = parent.querySelector("div.copyButton");
+
+    if (existingButton !== null) {
+      var existingButtonTicketNumber =
+        existingButton.querySelector("span#ticketSpan")?.textContent;
+
+      if (existingButtonTicketNumber !== ticketNumber) {
+        existingButton.remove();
       }
+    }
+
+    if (!existingButton) {
+      AddButtonToDOM(nearbyButton, ticketNumber);
     }
   }
 }
