@@ -48,7 +48,7 @@ function AddButtonToDOM(nearbyButton, ticketNumber) {
 
 function ButtonPlacementHandler(ticketTabContainer) {
   var ticketTabList = ticketTabContainer.querySelectorAll(
-    ".sc-1x3zb4y-0.eXHmlx"
+    ".sc-1x3zb4y-0"
   );
   for (var ticketTab of ticketTabList) {
     var ticketNumber = ticketTab
