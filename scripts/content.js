@@ -1,13 +1,19 @@
 // @ts-check
+/**
+ * @param {string} selector
+ * @returns {Promise<Element>}
+ */
 function waitForElement(selector) {
   return new Promise((resolve) => {
-    if (document.querySelector(selector)) {
-      return resolve(document.querySelector(selector));
+    var existingElement = document.querySelector(selector);
+    if (existingElement) {
+      return resolve(existingElement);
     }
 
     const observer = new MutationObserver((mutations) => {
-      if (document.querySelector(selector)) {
-        resolve(document.querySelector(selector));
+      var observedElement = document.querySelector(selector);
+      if (observedElement) {
+        resolve(observedElement);
         observer.disconnect();
       }
     });
@@ -19,6 +25,11 @@ function waitForElement(selector) {
   });
 }
 
+/**
+ * @param {Element} nearbyButton
+ * @param {string} ticketNumber
+ * @returns {void}
+ */
 function AddButtonToDOM(nearbyButton, ticketNumber) {
   var div = document.createElement("div");
   div.classList.add("ember-view", "btn", "copyButton");
@@ -46,14 +57,20 @@ function AddButtonToDOM(nearbyButton, ticketNumber) {
   }
 }
 
+/**
+ * @param {Element} ticketTabContainer
+ * @returns {void}
+ */
 function ButtonPlacementHandler(ticketTabContainer) {
   var ticketTabList = ticketTabContainer.querySelectorAll(
-    ".sc-1x3zb4y-0"
+    "[data-test-id='header-tab'][data-entity-id], .sc-1x3zb4y-0"
   );
   for (var ticketTab of ticketTabList) {
-    var ticketNumber = ticketTab
-      .querySelector("div")
-      .getAttribute("data-entity-id");
+    var ticketTabDiv = ticketTab.querySelector("div");
+    var ticketNumber =
+      ticketTab.getAttribute("data-entity-id") ||
+      ticketTabDiv?.getAttribute("data-entity-id");
+    if (ticketNumber == null) continue;
 
     var paneSelectorString = `div[elementtiming='ticket_workspace/${ticketNumber}']`;
     var intermediate = document.querySelector(paneSelectorString);
@@ -62,7 +79,9 @@ function ButtonPlacementHandler(ticketTabContainer) {
     var parent = intermediate.closest("div.ember-view.workspace");
     if (parent === null) continue;
 
-    var nearbyButton = parent.querySelector("span.ember-view.btn.active");
+    var nearbyButton = parent.querySelector(
+      "[data-test-id='tabs-section-nav-item-ticket'].active, span.ember-view.btn.active"
+    );
     if (nearbyButton === null) continue;
 
     var existingButton = parent.querySelector("div.copyButton");
@@ -73,6 +92,7 @@ function ButtonPlacementHandler(ticketTabContainer) {
 
       if (existingButtonTicketNumber !== ticketNumber) {
         existingButton.remove();
+        existingButton = null;
       }
     }
 
@@ -98,6 +118,12 @@ async function RegisterObserver() {
     childList: true,
     subtree: true,
   });
+
+  callback();
 }
 
-addEventListener("DOMContentLoaded", RegisterObserver);
+if (document.readyState === "loading") {
+  addEventListener("DOMContentLoaded", RegisterObserver);
+} else {
+  RegisterObserver();
+}
