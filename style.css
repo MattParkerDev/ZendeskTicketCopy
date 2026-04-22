@@ -32,3 +32,31 @@
 .copyButton {
   width: 87px !important;
 }
+
+.copyButton #ticketSpan {
+  display: none;
+}
+
+.copyButton #hoverSpan {
+  display: inline;
+}
+
+.copyButton #clickSpan {
+  display: none;
+}
+
+.copyButton:hover span#ticketSpan {
+  display: none;
+}
+
+.copyButton:hover span#hoverSpan {
+  display: inline;
+}
+
+.copyButton:active span#clickSpan {
+  display: none;
+}
+
+.copyButton:active span#hoverSpan {
+  display: inline;
+}
