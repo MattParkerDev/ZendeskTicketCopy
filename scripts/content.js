@@ -60,13 +60,10 @@ function AddButtonToDOM(nearbyButton, ticketNumber) {
  * @param {Element} ticketTabContainer
  */
 function ButtonPlacementHandler(ticketTabContainer) {
-  var ticketTabList = ticketTabContainer.querySelectorAll(
-    ".sc-1x3zb4y-0"
-  );
+  var ticketTabList = ticketTabContainer.querySelectorAll(".sc-1x3zb4y-0");
+  
   for (var ticketTab of ticketTabList) {
-    var ticketNumber = ticketTab
-      .querySelector("div")
-      ?.getAttribute("data-entity-id");
+    var ticketNumber = ticketTab.querySelector("div")?.getAttribute("data-entity-id");
     if (ticketNumber == null) continue;
 
     var paneSelectorString = `div[elementtiming='ticket_workspace/${ticketNumber}']`;
@@ -82,8 +79,7 @@ function ButtonPlacementHandler(ticketTabContainer) {
     var existingButton = parent.querySelector("div.copyButton");
 
     if (existingButton !== null) {
-      var existingButtonTicketNumber =
-        existingButton.querySelector("span#ticketSpan")?.textContent;
+      var existingButtonTicketNumber = existingButton.querySelector("span#ticketSpan")?.textContent;
 
       if (existingButtonTicketNumber !== ticketNumber) {
         existingButton.remove();
