@@ -26,10 +26,10 @@ function waitForElement(selector) {
 }
 
 /**
- * @param {Element} nearbyButton
+ * @param {Element} ticketLabelButton
  * @param {string} ticketNumber
  */
-function AddButtonToDOM(nearbyButton, ticketNumber) {
+function AddButtonToDOM(ticketLabelButton, ticketNumber) {
   var div = document.createElement("div");
   div.classList.add("ember-view", "btn", "copyButton");
   div.onclick = function () {
@@ -51,8 +51,8 @@ function AddButtonToDOM(nearbyButton, ticketNumber) {
   div.appendChild(ticketSpan);
   div.appendChild(hoverSpan);
   div.appendChild(clickSpan);
-  if (nearbyButton !== null) {
-    nearbyButton.insertAdjacentElement("afterend", div);
+  if (ticketLabelButton !== null) {
+    ticketLabelButton.insertAdjacentElement("afterend", div);
   }
 }
 
