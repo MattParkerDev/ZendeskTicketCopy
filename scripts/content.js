@@ -1,13 +1,19 @@
 // @ts-check
+/**
+ * @param {string} selector
+ * @returns {Promise<Element>}
+ */
 function waitForElement(selector) {
   return new Promise((resolve) => {
-    if (document.querySelector(selector)) {
-      return resolve(document.querySelector(selector));
+    var foundElement = document.querySelector(selector);
+    if (foundElement) {
+      return resolve(foundElement);
     }
 
     const observer = new MutationObserver((mutations) => {
-      if (document.querySelector(selector)) {
-        resolve(document.querySelector(selector));
+      var foundElement = document.querySelector(selector);
+      if (foundElement) {
+        resolve(foundElement);
         observer.disconnect();
       }
     });
@@ -19,6 +25,10 @@ function waitForElement(selector) {
   });
 }
 
+/**
+ * @param {Element} nearbyButton
+ * @param {string} ticketNumber
+ */
 function AddButtonToDOM(nearbyButton, ticketNumber) {
   var div = document.createElement("div");
   div.classList.add("ember-view", "btn", "copyButton");
@@ -46,6 +56,9 @@ function AddButtonToDOM(nearbyButton, ticketNumber) {
   }
 }
 
+/**
+ * @param {Element} ticketTabContainer
+ */
 function ButtonPlacementHandler(ticketTabContainer) {
   var ticketTabList = ticketTabContainer.querySelectorAll(
     ".sc-1x3zb4y-0"
@@ -53,7 +66,8 @@ function ButtonPlacementHandler(ticketTabContainer) {
   for (var ticketTab of ticketTabList) {
     var ticketNumber = ticketTab
       .querySelector("div")
-      .getAttribute("data-entity-id");
+      ?.getAttribute("data-entity-id");
+    if (ticketNumber == null) continue;
 
     var paneSelectorString = `div[elementtiming='ticket_workspace/${ticketNumber}']`;
     var intermediate = document.querySelector(paneSelectorString);
