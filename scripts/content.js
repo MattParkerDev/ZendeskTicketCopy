@@ -76,17 +76,17 @@ function ButtonPlacementHandler(ticketTabContainer) {
     var ticketLabelButton = parentOfTicketLabelButton.querySelector("span.ember-view.btn.active");
     if (ticketLabelButton === null) continue;
 
-    var existingButton = parentOfTicketLabelButton.querySelector("div.copyButton");
+    var existingCopyButton = parentOfTicketLabelButton.querySelector("div.copyButton");
 
-    if (existingButton !== null) {
-      var existingButtonTicketNumber = existingButton.querySelector("span#ticketSpan")?.textContent;
+    if (existingCopyButton !== null) {
+      var existingButtonTicketNumber = existingCopyButton.querySelector("span#ticketSpan")?.textContent;
 
       if (existingButtonTicketNumber !== ticketNumber) {
-        existingButton.remove();
+        existingCopyButton.remove();
       }
     }
 
-    if (!existingButton) {
+    if (!existingCopyButton) {
       AddButtonToDOM(ticketLabelButton, ticketNumber);
     }
   }
