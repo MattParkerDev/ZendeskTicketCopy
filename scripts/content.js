@@ -61,7 +61,7 @@ function AddButtonToDOM(nearbyButton, ticketNumber) {
  */
 function ButtonPlacementHandler(ticketTabContainer) {
   var ticketTabList = ticketTabContainer.querySelectorAll(".sc-1x3zb4y-0");
-  
+
   for (var ticketTab of ticketTabList) {
     var ticketNumber = ticketTab.querySelector("div")?.getAttribute("data-entity-id");
     if (ticketNumber == null) continue;
@@ -70,13 +70,13 @@ function ButtonPlacementHandler(ticketTabContainer) {
     var intermediate = document.querySelector(paneSelectorString);
     if (intermediate === null) continue;
 
-    var parent = intermediate.closest("div.ember-view.workspace");
-    if (parent === null) continue;
+    var parentOfTicketLabelButton = intermediate.closest("div.ember-view.workspace");
+    if (parentOfTicketLabelButton === null) continue;
 
-    var nearbyButton = parent.querySelector("span.ember-view.btn.active");
-    if (nearbyButton === null) continue;
+    var ticketLabelButton = parentOfTicketLabelButton.querySelector("span.ember-view.btn.active");
+    if (ticketLabelButton === null) continue;
 
-    var existingButton = parent.querySelector("div.copyButton");
+    var existingButton = parentOfTicketLabelButton.querySelector("div.copyButton");
 
     if (existingButton !== null) {
       var existingButtonTicketNumber = existingButton.querySelector("span#ticketSpan")?.textContent;
@@ -87,7 +87,7 @@ function ButtonPlacementHandler(ticketTabContainer) {
     }
 
     if (!existingButton) {
-      AddButtonToDOM(nearbyButton, ticketNumber);
+      AddButtonToDOM(ticketLabelButton, ticketNumber);
     }
   }
 }
