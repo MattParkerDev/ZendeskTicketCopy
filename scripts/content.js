@@ -60,10 +60,10 @@ function AddButtonToDOM(ticketLabelButton, ticketNumber) {
  * @param {Element} ticketTabContainer
  */
 function ButtonPlacementHandler(ticketTabContainer) {
-  const ticketTabList = ticketTabContainer.querySelectorAll(".sc-1x3zb4y-0");
+  const ticketTabList = ticketTabContainer.querySelectorAll("[data-test-id='header-tab'][data-entity-id]");
 
   for (const ticketTab of ticketTabList) {
-    const ticketNumber = ticketTab.querySelector("div")?.getAttribute("data-entity-id");
+    const ticketNumber = ticketTab.getAttribute("data-entity-id");
     if (ticketNumber == null) continue;
 
     const paneSelectorString = `div[elementtiming='ticket_workspace/${ticketNumber}']`;
